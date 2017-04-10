@@ -1,5 +1,6 @@
 package com.xiaoyezi.midicore.factorytool.basic;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -8,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.xiaoyezi.midicore.factorytool.R;
 import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
@@ -46,13 +49,13 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         setupButtons();
         setupPitchEditText();
         setupLightColorRadioButtons();
+
+        mBasicPresenter.start(this.getContext());
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        mBasicPresenter.start(this.getContext());
     }
 
     @Override
@@ -229,5 +232,44 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         } else {
             mPitch = p;
         }
+    }
+
+    /**
+     * Set device connect status
+     *
+     * @param b
+     */
+    @Override
+    public void setDeviceConnectionState(final boolean b) {
+        final Activity activity = this.getActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CheckBox cb = (CheckBox)activity.findViewById(R.id.cb_connection);
+                cb.setChecked(b);
+                cb.setText(b ? "物理设备已连接" : "物理设备未连接");
+            }
+        });
+    }
+
+    /**
+     * Midi data received
+     *
+     * @param data
+     */
+    @Override
+    public void onMidiData(final byte[] data) {
+        final Activity activity = this.getActivity();
+        activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String s = String.format("收到的MIDI数据长度为 %d\n", data.length);
+                    for (int i = 0; i < data.length; ++i) {
+                        s += String.format("0x%x ", data[i]);
+                    }
+                    TextView v = (TextView)activity.findViewById(R.id.tv_midi_data);
+                    v.setText(s);
+                }
+            });
     }
 }

@@ -8,6 +8,8 @@ import com.xiaoyezi.midicore.factorytool.base.BaseView;
  */
 public interface BasicContract {
     interface View extends BaseView<Presenter> {
+        void setDeviceConnectionState(final boolean b);
+        void onMidiData(final byte[] data);
     }
 
     interface Presenter extends BasePresenter {

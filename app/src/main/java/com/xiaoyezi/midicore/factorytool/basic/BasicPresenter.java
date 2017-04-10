@@ -12,12 +12,12 @@ import midicore.MidiDeviceManager;
  * Created by jim on 2017/4/10.
  */
 public class BasicPresenter implements BasicContract.Presenter {
-    private BasicContract.View mBasicContract;
+    private BasicContract.View mBasicView;
 
     private MiDiDataRepository mMiDiDataRepository;
 
     public BasicPresenter(BasicContract.View view, MiDiDataRepository dataRepository) {
-        mBasicContract = view;
+        mBasicView = view;
         mMiDiDataRepository = dataRepository;
     }
 
@@ -84,25 +84,15 @@ public class BasicPresenter implements BasicContract.Presenter {
 
     private final class TestMidiEventListener implements MidiDeviceEventListener {
         public void onAttached() {
-            //setDeviceConnectionState(true);
+            mBasicView.setDeviceConnectionState(true);
         }
 
         public void onDetached() {
-            //setDeviceConnectionState(false);
+            mBasicView.setDeviceConnectionState(false);
         }
 
         public void onMidiData(final byte[] data) {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    String s = String.format("收到的MIDI数据长度为 %d\n", data.length);
-//                    for (int i = 0; i < data.length; ++i) {
-//                        s += String.format("0x%x ", data[i]);
-//                    }
-//                    TextView v = (TextView)findViewById(R.id.tv_midi_data);
-//                    v.setText(s);
-//                }
-//            });
+            mBasicView.onMidiData(data);
         }
     }
 }

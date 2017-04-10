@@ -26,7 +26,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:text="链接"
+                android:text="连接"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/btn_connect"
