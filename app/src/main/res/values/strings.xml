@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FactoryTool</string>
+
+    <string name="basic_tab">Basic</string>
+    <string name="stability_tab">Stability</string>
+    <string name="log_tab">Logs</string>
+
+    <string name="button_delete">Delete all logs</string>
+</resources>

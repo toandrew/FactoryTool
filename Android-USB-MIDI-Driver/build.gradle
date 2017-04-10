@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'android-library' // Android Studio < 0.8.0
+
+repositories {
+}
+
+dependencies {
+    compile 'com.android.support:support-annotations:23.1.1'
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        minSdkVersion 12
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+
+apply plugin: 'maven'
+group = 'jp.kshoji'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository url: 'file://' + file('snapshots').absolutePath
+        pom.version = '0.1.4'
+        pom.artifactId = 'midi-driver'
+    }
+}
+task install(dependsOn: uploadArchives)
