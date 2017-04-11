@@ -3,4 +3,190 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="76dp">
+
+        <ToggleButton
+            android:id="@+id/start_stop_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="开始测试"
+            android:textOn="停止测试"
+            android:textSize="24sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/device_status_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/start_stop_btn"
+            android:layout_alignBottom="@+id/start_stop_btn"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="70dp"
+            android:text="琴未连接"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="236dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/connect_disconnect_test_cb"
+            android:layout_below="@+id/connect_disconnect_test_cb"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="12dp">
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="发送次数(-1: 无限制)："
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/times_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView6"
+            android:entries="@array/times"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView6"
+            android:text="发送间隔(ms)："
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/time_gap_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_toEndOf="@+id/textView7"
+            android:entries="@array/time_gap" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView7"
+            android:text="-----------" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView8"
+            android:text="测试项："
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/connect_disconnect_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView9"
+            android:checked="true"
+            android:text="连接/断开" />
+
+        <CheckBox
+            android:id="@+id/device_info_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/connect_disconnect_cb"
+            android:checked="true"
+            android:text="设备信息读取" />
+
+        <CheckBox
+            android:id="@+id/light_all_on_off_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/device_info_cb"
+            android:checked="true"
+            android:text="全亮／全灭灯（红蓝紫颜色随机）" />
+
+        <CheckBox
+            android:id="@+id/light_on_off_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/light_all_on_off_cb"
+            android:checked="true"
+            android:text="随机多灯测试（1～88，红蓝紫颜色随机）" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="----------------" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="log信息"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/log_info_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="log名称、位置" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="---------------" />
+
+        <TextView
+            android:id="@+id/midi_info_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btns_layout"
+            android:layout_weight="0.02"
+            android:background="#eeeeee"
+            android:text="这里显示midi消息"
+            android:textSize="18sp" />
+    </LinearLayout>
 </LinearLayout>

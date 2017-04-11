@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 /**
  * Created by jim on 2017/4/10.
  */
-
 public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {

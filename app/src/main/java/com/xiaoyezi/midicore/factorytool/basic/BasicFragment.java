@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.xiaoyezi.midicore.factorytool.R;
 import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
 import com.xiaoyezi.midicore.factorytool.data.Injection;
+import com.xiaoyezi.midicore.factorytool.data.MiDiDataSource;
 
 /**
  * Created by jianmin on 2017/4/10.
@@ -32,8 +33,6 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mBasicPresenter = new BasicPresenter(this, Injection.provideMiDiDataRepository());
     }
 
     @Override
@@ -50,6 +49,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         setupPitchEditText();
         setupLightColorRadioButtons();
 
+        mBasicPresenter = new BasicPresenter(this, Injection.provideMiDiDataRepository(this.getActivity().getApplicationContext()));
         mBasicPresenter.start(this.getContext());
     }
 
@@ -98,7 +98,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_CONNECT, 0, 0);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_CONNECT, 0, 0);
             }
         });
 
@@ -107,7 +107,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_QUERY_INFO, 0, 0);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_QUERY_INFO, 0, 0);
             }
         });
 
@@ -116,7 +116,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_TURN_ON_ALL, mLightColor, 0);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_TURN_ON_ALL, mLightColor, 0);
             }
         });
 
@@ -125,7 +125,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_TURN_OFF_ALL, 0, 0);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_TURN_OFF_ALL, 0, 0);
             }
         });
 
@@ -134,7 +134,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_TURN_ON, mPitch, mLightColor);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_TURN_ON, mPitch, mLightColor);
             }
         });
 
@@ -143,7 +143,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_TURN_OFF, mPitch, 0);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_TURN_OFF, mPitch, 0);
             }
         });
 
@@ -152,7 +152,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBasicPresenter.sendMidiEvent(BasicContract.Presenter.MIDI_COMMAND_KEY_PRESS, mPitch, 75);
+                mBasicPresenter.sendMidiEvent(MiDiDataSource.MIDI_COMMAND_KEY_PRESS, mPitch, 75);
             }
         });
     }
@@ -245,7 +245,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CheckBox cb = (CheckBox)activity.findViewById(R.id.cb_connection);
+                CheckBox cb = (CheckBox) activity.findViewById(R.id.cb_connection);
                 cb.setChecked(b);
                 cb.setText(b ? "物理设备已连接" : "物理设备未连接");
             }
@@ -261,15 +261,15 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     public void onMidiData(final byte[] data) {
         final Activity activity = this.getActivity();
         activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String s = String.format("收到的MIDI数据长度为 %d\n", data.length);
-                    for (int i = 0; i < data.length; ++i) {
-                        s += String.format("0x%x ", data[i]);
-                    }
-                    TextView v = (TextView)activity.findViewById(R.id.tv_midi_data);
-                    v.setText(s);
+            @Override
+            public void run() {
+                String s = String.format("收到的MIDI数据长度为 %d\n", data.length);
+                for (int i = 0; i < data.length; ++i) {
+                    s += String.format("0x%x ", data[i]);
                 }
-            });
+                TextView v = (TextView) activity.findViewById(R.id.tv_midi_data);
+                v.setText(s);
+            }
+        });
     }
 }

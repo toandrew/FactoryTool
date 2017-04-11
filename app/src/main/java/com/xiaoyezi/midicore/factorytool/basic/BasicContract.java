@@ -9,18 +9,11 @@ import com.xiaoyezi.midicore.factorytool.base.BaseView;
 public interface BasicContract {
     interface View extends BaseView<Presenter> {
         void setDeviceConnectionState(final boolean b);
+
         void onMidiData(final byte[] data);
     }
 
     interface Presenter extends BasePresenter {
-        int MIDI_COMMAND_CONNECT        = 0;
-        int MIDI_COMMAND_QUERY_INFO     = 1;
-        int MIDI_COMMAND_TURN_ON_ALL    = 2;
-        int MIDI_COMMAND_TURN_OFF_ALL   = 3;
-        int MIDI_COMMAND_TURN_ON        = 4;
-        int MIDI_COMMAND_TURN_OFF       = 5;
-        int MIDI_COMMAND_KEY_PRESS      = 6;
-
         void sendMidiEvent(int type, int data1, int data2);
     }
 }
