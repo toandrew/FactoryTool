@@ -10,12 +10,13 @@ import midicore.MidiDeviceEventListener;
  */
 public interface MiDiDataSource {
     int MIDI_COMMAND_CONNECT = 0;
-    int MIDI_COMMAND_QUERY_INFO = 1;
-    int MIDI_COMMAND_TURN_ON_ALL = 2;
-    int MIDI_COMMAND_TURN_OFF_ALL = 3;
-    int MIDI_COMMAND_TURN_ON = 4;
-    int MIDI_COMMAND_TURN_OFF = 5;
-    int MIDI_COMMAND_KEY_PRESS = 6;
+    int MIDI_COMMAND_DISCONNECT = 1;
+    int MIDI_COMMAND_QUERY_INFO = 2;
+    int MIDI_COMMAND_TURN_ON_ALL = 3;
+    int MIDI_COMMAND_TURN_OFF_ALL = 4;
+    int MIDI_COMMAND_TURN_ON = 5;
+    int MIDI_COMMAND_TURN_OFF = 6;
+    int MIDI_COMMAND_KEY_PRESS = 7;
 
     boolean startDevice();
 
@@ -28,6 +29,8 @@ public interface MiDiDataSource {
     void setMidiDevEventListener(EventListener listener);
 
     void sendMidiEvent(int type, int data1, int data2);
+
+    byte[] getMidiData(int type, int data1, int data2);
 
     interface EventListener extends MidiDeviceEventListener {
         @Override

@@ -3,11 +3,8 @@ package com.xiaoyezi.midicore.factorytool.basic;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.xiaoyezi.midicore.factorytool.base.BasePresenter;
 import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository;
 import com.xiaoyezi.midicore.factorytool.data.MiDiDataSource;
-
-import midicore.MidiDeviceEventListener;
 
 /**
  * Created by jim on 2017/4/10.
@@ -17,6 +14,8 @@ public class BasicPresenter implements BasicContract.Presenter {
 
     private MiDiDataRepository mMiDiDataRepository;
 
+    BasicPresenter.TestMidiEventListener mMidiListener = new BasicPresenter.TestMidiEventListener();
+
     public BasicPresenter(BasicContract.View view, MiDiDataRepository dataRepository) {
         mBasicView = view;
         mMiDiDataRepository = dataRepository;
@@ -24,7 +23,7 @@ public class BasicPresenter implements BasicContract.Presenter {
 
     @Override
     public void start(@NonNull final Context context) {
-        mMiDiDataRepository.setMidiDevEventListener(new TestMidiEventListener());
+        mMiDiDataRepository.setMidiDevEventListener(mMidiListener);
         mMiDiDataRepository.startDevice();
     }
 

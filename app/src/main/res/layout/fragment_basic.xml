@@ -25,6 +25,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/cb_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="琴未连接"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/red"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
+
             <Button
                 android:text="连接"
                 android:layout_width="wrap_content"
@@ -41,18 +53,6 @@
                 android:layout_height="match_parent"
                 android:id="@+id/btn_query_si"
                 android:background="@android:drawable/btn_default" />
-
-            <CheckBox
-                android:text="物理设备未连接"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/cb_connection"
-                android:layout_weight="1"
-                android:clickable="false"
-                android:focusable="false"
-                android:checked="false"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textAllCaps="false" />
 
 
         </LinearLayout>

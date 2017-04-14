@@ -9,9 +9,6 @@
     </string-array>
 
     <string-array name="time_gap">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
         <item>5</item>
         <item>10</item>
         <item>100</item>

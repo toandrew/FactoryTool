@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,26 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     private BasicContract.Presenter mBasicPresenter;
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (getUserVisibleHint()) {
+            Log.w(TAG, "visible!!");
+            if (mBasicPresenter != null) {
+                Log.w(TAG, "visible!! mBasicPresenter.start");
+                mBasicPresenter.start(this.getActivity());
+            }
+        } else {
+            Log.w(TAG, "invisible!!");
+
+            if (mBasicPresenter != null) {
+                Log.w(TAG, "invisible!! mBasicPresenter.stop");
+                mBasicPresenter.stop();
+            }
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -44,13 +65,13 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.w(TAG, "onViewCreated!");
         setupButtons();
         setupPitchEditText();
         setupLightColorRadioButtons();
 
         mBasicPresenter = new BasicPresenter(this, Injection.provideMiDiDataRepository(this.getActivity().getApplicationContext()));
-        mBasicPresenter.start(this.getContext());
+        mBasicPresenter.start(this.getActivity());
     }
 
     @Override
@@ -62,6 +83,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     public void onResume() {
         super.onResume();
 
+        Log.w(TAG, "onResume!");
         mBasicPresenter.resume();
     }
 
@@ -69,6 +91,7 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
     public void onPause() {
         super.onPause();
 
+        Log.w(TAG, "onPause!");
         mBasicPresenter.pause();
     }
 
@@ -245,9 +268,11 @@ public class BasicFragment extends BaseFragment implements BasicContract.View {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CheckBox cb = (CheckBox) activity.findViewById(R.id.cb_connection);
-                cb.setChecked(b);
-                cb.setText(b ? "物理设备已连接" : "物理设备未连接");
+                TextView cb = (TextView) activity.findViewById(R.id.cb_connection);
+                int okColor = activity.getResources().getColor(R.color.green_500);
+                int badColor = activity.getResources().getColor(R.color.red);
+                cb.setTextColor(b ? okColor : badColor);
+                cb.setText(b ? "琴已连接" : "琴未连接");
             }
         });
     }

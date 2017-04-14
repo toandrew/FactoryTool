@@ -6,32 +6,35 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp">
+        android:layout_height="77dp">
 
         <ToggleButton
             android:id="@+id/start_stop_btn"
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/device_status_textview"
+            android:layout_alignBottom="@+id/device_status_textview"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
             android:text="ToggleButton"
             android:textOff="开始测试"
             android:textOn="停止测试"
-            android:textSize="24sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/device_status_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/start_stop_btn"
-            android:layout_alignBottom="@+id/start_stop_btn"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="26dp"
+            android:layout_toStartOf="@+id/start_stop_btn"
             android:text="琴未连接"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="@color/red"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
@@ -39,7 +42,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="236dp">
+        android:layout_height="183dp">
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -58,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:text="发送次数(-1: 无限制)："
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/times_spinner"
@@ -76,7 +79,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView6"
             android:text="发送间隔(ms)："
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/time_gap_spinner"
@@ -93,7 +96,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView7"
-            android:text="-----------" />
+            android:text="-----------------------------" />
 
         <TextView
             android:id="@+id/textView9"
@@ -102,7 +105,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView8"
             android:text="测试项："
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/connect_disconnect_cb"
@@ -116,8 +119,10 @@
             android:id="@+id/device_info_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/connect_disconnect_cb"
+            android:layout_alignBaseline="@+id/connect_disconnect_cb"
+            android:layout_alignBottom="@+id/connect_disconnect_cb"
+            android:layout_alignStart="@+id/times_spinner"
+            android:layout_marginStart="11dp"
             android:checked="true"
             android:text="设备信息读取" />
 
@@ -139,6 +144,17 @@
             android:checked="true"
             android:text="随机多灯测试（1～88，红蓝紫颜色随机）" />
 
+        <EditText
+            android:id="@+id/light_num_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/light_on_off_cb"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="10"
+            android:textSize="14sp" />
+
 
     </RelativeLayout>
 
@@ -151,14 +167,14 @@
             android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="----------------" />
+            android:text="-------------------------------------" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="log信息"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/log_info_textview"
@@ -174,10 +190,31 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="---->>>>-------------------------" />
+
+        <TextView
+            android:id="@+id/send_midi_info_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btns_layout"
+            android:background="#eeeeee"
+            android:text="发送的midi消息"
+            android:textSize="18sp"
+            android:layout_weight="0.00"
+            android:lines="3" />
+
+        <TextView
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="---------------" />
+            android:lines="2"
+            android:maxLines="2"
+            android:minHeight="17dp"
+            android:minLines="2"
+            android:text="--------------------------------------" />
 
         <TextView
             android:id="@+id/midi_info_textview"
@@ -186,7 +223,7 @@
             android:layout_alignBottom="@+id/btns_layout"
             android:layout_weight="0.02"
             android:background="#eeeeee"
-            android:text="这里显示midi消息"
+            android:text="接收的midi消息"
             android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>
