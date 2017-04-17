@@ -109,7 +109,7 @@ public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder> i
     /**
      * Log view holder
      */
-    public class LogsHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
+    public static class LogsHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         TextView fileName;
         TextView filePath;
         TextView fileSize;

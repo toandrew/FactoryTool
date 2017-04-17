@@ -1,5 +1,7 @@
 package com.xiaoyezi.midicore.factorytool.log;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,18 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 import com.xiaoyezi.midicore.factorytool.R;
 import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
 import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.data.Injection;
 import com.xiaoyezi.midicore.factorytool.log.adapter.LogsAdapter;
 import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperCallback;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by jianmin on 2017/4/10.

@@ -65,15 +65,6 @@ public class StabilityPresenter implements StabilityContract.Presenter {
         mMiDiDataRepository.stopDevice();
     }
 
-    /**
-     * Stop test
-     */
-    private void stopTest() {
-        mSubscription.unsubscribe();
-        mSubscription = null;
-        mCurrentTestIndex = 0;
-    }
-
     @Override
     public void resume() {
         Tlog.e("resumeDevice!");
@@ -230,6 +221,15 @@ public class StabilityPresenter implements StabilityContract.Presenter {
         tests.add(new TestData(MiDiDataSource.MIDI_COMMAND_TURN_OFF_ALL, 0, 0));
 
         return tests;
+    }
+
+    /**
+     * Stop test
+     */
+    private void stopTest() {
+        mSubscription.unsubscribe();
+        mSubscription = null;
+        mCurrentTestIndex = 0;
     }
 
     /**

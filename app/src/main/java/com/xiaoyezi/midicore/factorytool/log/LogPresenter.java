@@ -1,15 +1,15 @@
 package com.xiaoyezi.midicore.factorytool.log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository;
 import com.xiaoyezi.midicore.factorytool.utils.FileSortFactory;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static com.xiaoyezi.midicore.factorytool.utils.FileSortFactory.SORT_BY_TIME;
 
