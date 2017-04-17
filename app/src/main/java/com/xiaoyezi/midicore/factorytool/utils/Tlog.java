@@ -1,5 +1,7 @@
 package com.xiaoyezi.midicore.factorytool.utils;
 
+import android.text.TextUtils;
+
 import com.elvishew.xlog.LogConfiguration;
 import com.elvishew.xlog.XLog;
 import com.elvishew.xlog.printer.AndroidPrinter;
@@ -52,6 +54,10 @@ public class Tlog {
         return LOG_PATH + sLogFileName;
     }
 
+    public static void resetLogName() {
+        sLogFileName = "";
+    }
+
     /**
      * Debug
      *
@@ -89,7 +95,7 @@ public class Tlog {
 
         @Override
         public boolean isFileNameChangeable() {
-            return false;
+            return true;
         }
 
         /**
@@ -97,10 +103,12 @@ public class Tlog {
          */
         @Override
         public String generateFileName(int logLevel, long timestamp) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            sdf.setTimeZone(TimeZone.getDefault());
+            if (TextUtils.isEmpty(sLogFileName)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getDefault());
 
-            sLogFileName = sdf.format(new Date(timestamp)) + ".log";
+                sLogFileName = sdf.format(new Date(timestamp)) + ".log";
+            }
 
             return sLogFileName;
         }

@@ -188,7 +188,7 @@ public class MiDiDataRepository implements MiDiDataSource {
 
         File[] files = new File(LOG_PATH).listFiles();
         for (File file : files) {
-            FileModel log = new LogFileModel(file.getName(), file.length(), Utils.getTime(file.lastModified()));
+            FileModel log = new LogFileModel(file.getName(), file.length(), Utils.getTime(file.lastModified()), file.lastModified());
             logs.add(log);
         }
 
@@ -203,12 +203,13 @@ public class MiDiDataRepository implements MiDiDataSource {
         String filePath;
         long fileSize;
         String fileTime;
-
-        public LogFileModel(String fileName, long fileSize, String fileTime) {
+        long lastModified;
+        public LogFileModel(String fileName, long fileSize, String fileTime, long lastModified) {
             this.fileName = fileName;
             this.filePath = LOG_PATH;
             this.fileSize = fileSize;
             this.fileTime = fileTime;
+            this.lastModified = lastModified;
         }
 
         @Override
@@ -232,8 +233,8 @@ public class MiDiDataRepository implements MiDiDataSource {
         }
 
         @Override
-        public Image getFileIcon() {
-            return null;
+        public long getLastModified() {
+            return lastModified;
         }
     }
 

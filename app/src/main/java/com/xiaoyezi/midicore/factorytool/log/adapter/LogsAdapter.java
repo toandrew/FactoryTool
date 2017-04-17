@@ -1,9 +1,15 @@
 package com.xiaoyezi.midicore.factorytool.log.adapter;
 
+import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
+import android.graphics.Color;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,17 +17,29 @@ import android.widget.TextView;
 
 import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.R;
+import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperAdapter;
+import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperViewHolder;
+import com.xiaoyezi.midicore.factorytool.utils.Tlog;
 
 /**
  * Created by jim on 2017/4/14.
  */
-public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder>{
+public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder> implements ItemTouchHelperAdapter {
     private List<FileModel> mLogs;
 
-    OnItemClickListener mOnItemClickListener;
+    private ItemTouchHelper mItemTouchHelper;
 
     public LogsAdapter(List<FileModel> logs) {
         mLogs = logs;
+    }
+
+    /**
+     * Set touch helper
+     *
+     * @param itemTouchHelper
+     */
+    public void setTouchHelper(ItemTouchHelper itemTouchHelper) {
+        mItemTouchHelper = itemTouchHelper;
     }
 
     @Override
@@ -31,31 +49,22 @@ public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder>{
     }
 
     @Override
-    public void onBindViewHolder(LogsHolder holder, final int position) {
+    public void onBindViewHolder(final LogsHolder holder, final int position) {
         FileModel log = mLogs.get(position);
 
         holder.fileName.setText(log.getName());
         holder.fileSize.setText(String.valueOf(log.getSize()));
         holder.fileTime.setText(log.getCreatedTime());
 
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOnItemClickListener.onClick(position);
+        holder.fileHandleIcon.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (MotionEventCompat.getActionMasked(motionEvent) == MotionEvent.ACTION_DOWN) {
+                    mItemTouchHelper.startDrag(holder);
                 }
-            });
-
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    mOnItemClickListener.onLongClick(position);
-
-                    return false;
-                }
-            });
-        }
-
+                return false;
+            }
+        });
     }
 
     @Override
@@ -63,33 +72,50 @@ public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder>{
         return mLogs.size();
     }
 
-    /**
-     * item click listener
-     */
-    public interface OnItemClickListener{
-        void onClick( int position);
-        void onLongClick( int position);
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(mLogs, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        deleteFile(position);
+
+        notifyItemRemoved(position);
     }
 
     /**
-     * Set item listener
+     * Delete log file
      *
-     * @param onItemClickListener
+     * @param position
      */
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
-        this.mOnItemClickListener = onItemClickListener;
+    private void deleteFile(int position) {
+        if (position >= 0 && position < mLogs.size()) {
+            FileModel fileModel = mLogs.get(position);
+            if (fileModel != null) {
+                (new File(fileModel.getPath() + fileModel.getName())).delete();
+            }
+        }
+
+        mLogs.remove(position);
+
+        if (mLogs.size() == 0) {
+            Tlog.resetLogName();
+        }
     }
 
     /**
      * Log view holder
      */
-    public class LogsHolder extends RecyclerView.ViewHolder {
+    public class LogsHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         TextView fileName;
         TextView filePath;
         TextView fileSize;
         TextView fileTime;
         ImageView fileIcon;
-        ImageView fileMoreIcon;
+        ImageView fileHandleIcon;
 
         public LogsHolder(View itemView) {
             super(itemView);
@@ -98,7 +124,17 @@ public class LogsAdapter extends RecyclerView.Adapter <LogsAdapter.LogsHolder>{
             fileSize = (TextView)itemView.findViewById(R.id.file_size);
             fileTime = (TextView)itemView.findViewById(R.id.file_time);
             fileIcon = (ImageView)itemView.findViewById(R.id.file_image);
-            fileMoreIcon = (ImageView)itemView.findViewById(R.id.file_more);
+            fileHandleIcon = (ImageView)itemView.findViewById(R.id.handle);
+        }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
         }
     }
 }

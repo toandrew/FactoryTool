@@ -6,4 +6,6 @@
     <string name="log_tab">Logs</string>
 
     <string name="button_delete">Delete all logs</string>
+
+    <string name="no_log">No log</string>
 </resources>

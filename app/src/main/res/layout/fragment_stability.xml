@@ -170,13 +170,6 @@
             android:text="-------------------------------------" />
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="log信息"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/log_info_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

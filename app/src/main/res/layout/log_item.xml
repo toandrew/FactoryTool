@@ -62,14 +62,13 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/file_more"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.Holo.Button.Borderless"
-            android:src="@drawable/ic_arrow_drop_down_24dp"
-            />
+        <ImageView
+            android:id="@+id/handle"
+            android:layout_width="?listPreferredItemHeight"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right"
+            android:scaleType="center"
+            android:src="@drawable/ic_reorder_grey_500_24dp"/>
     </LinearLayout>
 
 </LinearLayout>

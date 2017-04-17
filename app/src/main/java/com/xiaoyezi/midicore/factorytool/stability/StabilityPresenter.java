@@ -2,8 +2,10 @@ package com.xiaoyezi.midicore.factorytool.stability;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +37,9 @@ public class StabilityPresenter implements StabilityContract.Presenter {
 
     Subscription mSubscription;
 
+    // badly
+    private int mCurrentTestIndex = 0;
+
     public StabilityPresenter(StabilityFragment fragment, MiDiDataRepository dataRepository) {
         mStabilityFragment = fragment;
         mMiDiDataRepository = dataRepository;
@@ -42,22 +47,44 @@ public class StabilityPresenter implements StabilityContract.Presenter {
 
     @Override
     public void start(@NonNull final Context context) {
+        Tlog.e("startDevice!");
+
         mMiDiDataRepository.setMidiDevEventListener(mMidiListener);
         mMiDiDataRepository.startDevice();
     }
 
     @Override
     public void stop() {
+        Tlog.e("stopDevice!");
+
+        // stop test
+        if (mSubscription != null) {
+            mStabilityFragment.onTestFinished();
+
+            stopTest();
+        }
+
         mMiDiDataRepository.stopDevice();
+    }
+
+    /**
+     * Stop test
+     */
+    private void stopTest() {
+        mSubscription.unsubscribe();
+        mSubscription = null;
+        mCurrentTestIndex = 0;
     }
 
     @Override
     public void resume() {
+        Tlog.e("resumeDevice!");
         mMiDiDataRepository.resumeDevice();
     }
 
     @Override
     public void pause() {
+        Tlog.e("pauseDevice!");
         mMiDiDataRepository.pauseDevice();
     }
 
@@ -86,9 +113,6 @@ public class StabilityPresenter implements StabilityContract.Presenter {
         }
     }
 
-    // badly
-    private int mCurrentTestIndex = 0;
-
     /**
      * Start/Stop test
      *
@@ -96,8 +120,9 @@ public class StabilityPresenter implements StabilityContract.Presenter {
      */
     @Override
     public void startStopText(final TestConfig config) {
-        final ArrayList<TestData> testSet = (ArrayList) buildTests(config);
         if (mSubscription == null) {
+            final ArrayList<TestData> testSet = (ArrayList) buildTests(config);
+
             Tlog.e("BEGIN");
 
             mCurrentTestIndex = 0;
@@ -161,9 +186,8 @@ public class StabilityPresenter implements StabilityContract.Presenter {
                     });
         } else {
             Tlog.e("END");
-            mSubscription.unsubscribe();
-            mSubscription = null;
-            mCurrentTestIndex = 0;
+
+            stopTest();
         }
     }
 

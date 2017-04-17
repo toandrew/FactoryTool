@@ -37,9 +37,9 @@ public interface FileModel {
     String getCreatedTime();
 
     /**
-     * Get file icon
+     * Get lastModified time
      *
      * @return
      */
-    Image getFileIcon();
+    long getLastModified();
 }

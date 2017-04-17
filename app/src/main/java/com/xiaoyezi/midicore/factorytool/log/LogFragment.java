@@ -2,18 +2,18 @@ package com.xiaoyezi.midicore.factorytool.log;
 
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +24,7 @@ import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
 import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.data.Injection;
 import com.xiaoyezi.midicore.factorytool.log.adapter.LogsAdapter;
+import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperCallback;
 
 /**
  * Created by jianmin on 2017/4/10.
@@ -36,7 +37,12 @@ public class LogFragment extends BaseFragment implements LogContract.View {
     @BindView(R.id.log_recyclerview)
     RecyclerView mLogRecyclerView;
 
+    @BindView(R.id.no_log_textview)
+    TextView mNoLogTextView;
+
     private LogsAdapter mLogsAdapter;
+
+    private ItemTouchHelper mItemTouchHelper;
 
     private LogContract.Presenter mLogPresenter;
 
@@ -119,34 +125,22 @@ public class LogFragment extends BaseFragment implements LogContract.View {
 
     @Override
     public void showLogs(List<FileModel> logs) {
+        if (logs.size() > 0) {
+            mLogRecyclerView.setVisibility(View.VISIBLE);
+            mNoLogTextView.setVisibility(View.GONE);
+        } else {
+            mLogRecyclerView.setVisibility(View.GONE);
+            mNoLogTextView.setVisibility(View.VISIBLE);
+        }
+
         if (mLogsAdapter == null) {
             mLogsAdapter = new LogsAdapter(logs);
-            mLogsAdapter.setOnItemClickListener(new LogsAdapter.OnItemClickListener() {
-                @Override
-                public void onClick(int position) {
-                    AlertDialog aDialog= new AlertDialog.Builder(LogFragment.this.getActivity())
-                            .setTitle("删除文件")
-                            .setMessage("确认删除该log文件？")
-                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            })
-                            .setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            }).show();
-                }
-
-                @Override
-                public void onLongClick(int position) {
-
-                }
-            });
             mLogRecyclerView.setAdapter(mLogsAdapter);
+
+            ItemTouchHelperCallback itemTouchHelperCallback = new ItemTouchHelperCallback(mLogsAdapter);
+            mItemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+            mItemTouchHelper.attachToRecyclerView(mLogRecyclerView);
+            mLogsAdapter.setTouchHelper(mItemTouchHelper);
         } else {
             mLogsAdapter.notifyDataSetChanged();
         }

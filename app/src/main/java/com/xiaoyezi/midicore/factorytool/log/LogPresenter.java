@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 
 import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository;
+import com.xiaoyezi.midicore.factorytool.utils.FileSortFactory;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static com.xiaoyezi.midicore.factorytool.utils.FileSortFactory.SORT_BY_TIME;
 
 /**
  * Created by jim on 2017/4/10.
@@ -29,6 +32,7 @@ public class LogPresenter implements LogContract.Presenter {
     public void start(@NonNull final Context context) {
         mLogs.clear();
         mLogs.addAll(mMiDiDataRepository.getLogs());
+        Collections.sort(mLogs, FileSortFactory.getFileQueryMethod(SORT_BY_TIME));
         mLogFragment.showLogs(mLogs);
     }
 
