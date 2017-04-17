@@ -1,7 +1,6 @@
 package com.xiaoyezi.midicore.factorytool.data;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 
 import com.xiaoyezi.midicore.factorytool.utils.Utils;

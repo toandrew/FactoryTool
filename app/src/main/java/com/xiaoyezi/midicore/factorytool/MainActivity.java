@@ -1,8 +1,8 @@
 package com.xiaoyezi.midicore.factorytool;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -11,7 +11,6 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-
 import com.xiaoyezi.midicore.factorytool.basic.BasicFragment;
 import com.xiaoyezi.midicore.factorytool.log.LogFragment;
 import com.xiaoyezi.midicore.factorytool.stability.StabilityFragment;

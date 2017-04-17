@@ -2,10 +2,15 @@ package com.xiaoyezi.midicore.factorytool.stability;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.File;
+import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository;
+import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository.TestData;
+import com.xiaoyezi.midicore.factorytool.data.MiDiDataSource;
+import com.xiaoyezi.midicore.factorytool.data.TestConfig;
+import com.xiaoyezi.midicore.factorytool.utils.Tlog;
+import com.xiaoyezi.midicore.factorytool.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -15,13 +20,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.schedulers.Schedulers;
-
-import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository;
-import com.xiaoyezi.midicore.factorytool.data.MiDiDataSource;
-import com.xiaoyezi.midicore.factorytool.data.MiDiDataRepository.TestData;
-import com.xiaoyezi.midicore.factorytool.data.TestConfig;
-import com.xiaoyezi.midicore.factorytool.utils.Tlog;
-import com.xiaoyezi.midicore.factorytool.utils.Utils;
 
 /**
  * Created by jim on 2017/4/10.

@@ -1,9 +1,5 @@
 package com.xiaoyezi.midicore.factorytool.log.adapter;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.R;
+import com.xiaoyezi.midicore.factorytool.data.FileModel;
 import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperAdapter;
 import com.xiaoyezi.midicore.factorytool.log.adapter.itemtouchhelper.ItemTouchHelperViewHolder;
 import com.xiaoyezi.midicore.factorytool.utils.Tlog;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by jim on 2017/4/14.

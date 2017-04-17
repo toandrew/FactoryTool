@@ -13,6 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.xiaoyezi.midicore.factorytool.R;
+import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
+import com.xiaoyezi.midicore.factorytool.data.Injection;
+import com.xiaoyezi.midicore.factorytool.data.TestConfig;
+import com.xiaoyezi.midicore.factorytool.utils.Tlog;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
@@ -20,12 +26,6 @@ import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
-
-import com.xiaoyezi.midicore.factorytool.R;
-import com.xiaoyezi.midicore.factorytool.base.BaseFragment;
-import com.xiaoyezi.midicore.factorytool.data.Injection;
-import com.xiaoyezi.midicore.factorytool.data.TestConfig;
-import com.xiaoyezi.midicore.factorytool.utils.Tlog;
 
 /**
  * Created by jianmin on 2017/4/10.

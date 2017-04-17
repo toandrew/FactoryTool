@@ -1,9 +1,5 @@
 package com.xiaoyezi.midicore.factorytool.data;
 
-import android.media.Image;
-
-import java.util.List;
-
 /**
  * Created by jim on 2017/4/14.
  */

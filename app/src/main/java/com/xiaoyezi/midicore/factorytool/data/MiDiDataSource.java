@@ -1,8 +1,5 @@
 package com.xiaoyezi.midicore.factorytool.data;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
 import midicore.MidiDeviceEventListener;
 
 /**
