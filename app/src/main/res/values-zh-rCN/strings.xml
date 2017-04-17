@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">工厂琴测试工具</string>
+    <string name="app_name">琴测试工具</string>
 
     <string name="basic_tab">基本功能</string>
     <string name="stability_tab">稳定性</string>
